@@ -39,12 +39,16 @@ venv() {
 }
 
 ghclone() {
-    if [ $# -ne 2 ]; then
-        echo "Usage: ghclone <username> <repo>" >&2
+    if [[ $# -ne 2 && $# -ne 3 ]]; then
+        echo "Usage: ghclone <username> <repository> [<directory>]" >&2
         return 1
     fi
-    
-    git clone "git@github.com:$1/$2.git"
+
+    if [ $# -eq 2 ]; then
+        git clone "git@github.com:$1/$2.git"
+    else
+        git clone "git@github.com:$1/$2.git" "$3"
+    fi
 }
 
 # INTEDAI END
